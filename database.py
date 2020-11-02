@@ -1,6 +1,6 @@
 from peewee import *
 
-db = MySQLDatabase('best', user='best', password='best', host='10.0.0.2')
+db = MySQLDatabase('best', user='best', password='best', host='127.0.0.1')
 
 class MyModel(Model):
     class Meta:
