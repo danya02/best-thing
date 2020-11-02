@@ -29,6 +29,7 @@ def index():
         choice.mypercent = str(round(100*my.wins/(my.matchups or 1), 2))+'%'
         choice.otherpercent = str(round(100*other.wins/(other.matchups or 1), 2))+'%'
         choice.agree = my.wins/(my.matchups or 1) > other.wins/(other.matchups or 1)
+        print(my.title, 'over', other.title, '(', choice.mypercent, 'over', choice.otherpercent, ')')
     else:
         choice = None
     left = choose_thing()
@@ -37,7 +38,10 @@ def index():
 
 @app.route('/rankings')
 def rankings():
-    return 'rankings'
+    bottom = Thing.select().order_by((Thing.wins/Thing.matchups), Thing.wins, Thing.matchups).limit(20)
+    top = Thing.select().order_by(-(Thing.wins/Thing.matchups), -Thing.wins, -Thing.matchups).limit(20)
+
+    return render_template('rankings.html', top_query=top, bot_query=bottom)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 5000, debug=True)
