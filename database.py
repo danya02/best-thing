@@ -15,9 +15,5 @@ class Thing(MyModel):
     title = CharField(unique=True)
     description = TextField()
     image = CharField(null=True) # URL to image
-
-@create_table
-class VoteCount(MyModel):
-    thing = ForeignKeyField(Thing, primary_key=True, unique=True)
     matchups = IntegerField(index=True)
     wins = IntegerField(index=True)
